@@ -1,18 +1,36 @@
-def fibonacciSum(end):
-    total = 0
-    numbers = [1,2,]
-    numbers2 = []
-    for i in range(2, end):               
-        
-        #numbers.append(i)
-        
-            
-        i = numbers[i-2] + numbers [i-1]
-        numbers.append(i)
-       
-        
-        #numbers2.append(i)       
-        total += i
-        print(numbers, i, total, numbers2)
+numbers = [1,2]
+#numbers = []
+evens = [2]
+#numbers[0] = 1
+#numbers[1] = 2
+f = 0
+total = 0
+print(numbers)
+print(numbers[-1])
 
-fibonacciSum(10)
+
+
+#while total <= 4000000:
+#    total = sum(evens)
+#    
+#    f = numbers[-1] + numbers[-2]
+#    numbers.append(f)
+#    if f % 2 == 0:
+#        evens.append(f)
+#
+#        
+#    
+#print(total, evens)
+
+while f <= 4000000:
+    total = sum(evens)
+    
+    f = numbers[-1] + numbers[-2]
+    numbers.append(f)
+    if f % 2 == 0:
+        evens.append(f)
+
+        
+    
+print(total, evens)
+ 
