@@ -18,9 +18,10 @@ while is_palindrome = False:
         
         if prost[digit] == prost[-1]:
             prost.pop(-1)
-            if len(prost) == (len(str(product))/2) + 1
+            
         else:
             is_palindrome = False
+            break
     y -= 1
     for digit in str(product):
        prost = str(product)
