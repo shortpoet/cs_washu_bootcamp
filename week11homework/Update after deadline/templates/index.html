@@ -53,7 +53,7 @@
         <section id="facts">
           <h3 class="text-center">Mars Facts</h3>
           <div id="table">
-              <!--{{ table }}-->
+              <!-- Interesting this works even if commented... {{ table }}-->
             <table class="dataframe">
               <thead>
                 <tr>
@@ -152,20 +152,92 @@
             </div>
           </div>
           <hr>
-        <div class="container">
           <div class="row">
-            <section id="traverse-map">
+              <div class="col-s-12">
+                <section id="curiosity">
+                  <div class="col-s-12 col-md-9">
+                    <div class="box">
+                          <h3><strong>Curiosity Rover {{mars.curio_title}}</strong> - <em><a href="{{mars.curio_mission_update}}">{{mars.curio_update_text}}</a></em></h3>
+                          <br>
+                          <p>{{mars.curio_text_1}}</p>
+                          <br>
+                          <p>{{mars.curio_text_2}}</p>
+                          <br>
+                          <h4>{{mars.curio_subtitle_1}}</h4>
+                          <br>
+                          <p>{{mars.curio_text_3}}</p>
+                          <br>
+                          <h4>{{mars.curio_subtitle_2}}</h4>
+                          <br>
+                          <p>{{mars.curio_text_4}}<a href="{{mars.sci_stud_link}}">{{mars.sci_stud}}</a>{{mars.curio_text_5}}</p>
+                          <br>
+                          <h4>{{mars.curio_subtitle_3}}</h4>
+                          <br>
+                          <p>{{mars.curio_text_6}}<a href="{{mars.innov_link}}">{{mars.innov_text}}</a>{{mars.curio_text_7}}</p>
+                          <br>
+                          <h4>{{mars.curio_subtitle_4}}</h4>
+                          <br>
+                          <p>{{mars.curio_text_8}}</p>
+                          <br>
+                          <h4>{{mars.bullet_subtitle}}</h4>
+                          <br>
+                          <ul>
+                            {% for item in mars.bullet_list %}
+                            <li>{{item}}</li>
+                            {% endfor %}
+                          </ul>
+                    </div>
+                    <br>
+                  </div>
+                  <div class="col-s-12 col-md-3">
+                    <button type="button" class="btn btn-default btn-lg side">
+                      <span id="glyph" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>        <a href="{{mars.curio_mission_update}}" target="_blank">Curiosity Mission Update</a>
+                    </button>
+                    <button type="button" class="btn btn-default btn-lg side">
+                      <span id="glyph" class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span>        <a href="{{mars.curio_fact_link}}" target="_blank">{{mars.curio_fact_title}} (PDF)</a>
+                    </button>
+                    <button type="button" class="btn btn-default btn-lg side">
+                      <span id="tech-info" class="glyphicon glyphicon-search" aria-hidden="true"></span>        <a href="{{mars.tech_info_link}}" target="_blank">MSL for Scientists</a>
+                    </button>
+                  </div>
+                </section>
+              </div>
+            </div>
+            <hr>
+        <div class="container">
+          <section id="traverse-map">
+            <div class="row">
               <div class="col-s-12">
                 <a class="text-center" href="{{mars.sp_map_link}}"  target="_blank"><h3>Spirit Traverse Map</h3><img class="img-responsive image center-block" src="{{mars.sp_map_link}}" alt="Spirit Rover Mars Traverse Map"></a>
               </div>
-              <hr>
+            </div>
+            <hr>
+            <div class="row">
               <div class="col-s-12">
                 <a class="text-center" href="{{mars.opp_map_link}}"  target="_blank"><h3>Opportunity Traverse Map</h3><img class="img-responsive image center-block" src="{{mars.opp_map_link}}" alt="Opportunity Rover Mars Traverse Map"></a>
               </div>
-            </section>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-s-12">
+                <a class="text-center" href="{{mars.curio_map_link}}"  target="_blank"><h3>{{mars.curio_map_title}}</h3><img class="img-responsive image center-block" src="{{mars.curio_map_link}}" alt={{mars.curio_map_alt}}></a>
+              <div class="col-s-12">
+                <h3>{{mars.curio_map_title2}}</h3>
+                <p>{{mars.curio_map_text}}</p>
+                <hr>
+                <h3>Bonus Infomation found in HTML Comments on Curiosity Index</h3>
+                <p>{{mars.commented_info}}</p>
+              </div>
+              </div>
+            </div>
+            <hr>
+          </section>
+        
+        
           </div>
+
         </div>  
-      </section>
+      
     </div>
   </div>
 </body>
