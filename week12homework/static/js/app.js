@@ -83,17 +83,8 @@ submit.on("click", function() {
         if (shapeValArr.length === 0) {
             return ufos;
         } else {
-            var shapeFilter = []
-            shapeValArr.forEach(function(shapeVal){
-                ufos.forEach(function(ufo){
-                    if (ufo.shape === shapeVal) {
-                        shapeFilter.push(ufo);
-                    }
-                });
-            });
-            return shapeFilter;
+            return data.filter(ufo => shapeValArr.reduce((a,b) => a || b === ufo.shape, false));
         }
-
     }
     var shapeFilter = shapeFilterF(shapeValArr)
     console.log(`shapeFilter: `);
@@ -107,17 +98,8 @@ submit.on("click", function() {
         if (cityValArr.length === 0) {
             return ufos;
         } else {
-            var cityFilter = []
-            cityValArr.forEach(function(cityVal){
-                ufos.forEach(function(ufo){
-                    if (ufo.city === cityVal) {
-                        cityFilter.push(ufo);
-                    }
-                });
-            });
-            return cityFilter;
+            return data.filter(ufo => cityValArr.reduce((a,b) => a || b === ufo.city, false));
         }
-
     }
     var cityFilter = cityFilterF(cityValArr)
     console.log(`cityFilter: `);
@@ -131,17 +113,8 @@ submit.on("click", function() {
         if (stateValArr.length === 0) {
             return ufos;
         } else {
-            var stateFilter = []
-            stateValArr.forEach(function(stateVal){
-                ufos.forEach(function(ufo){
-                    if (ufo.state === stateVal) {
-                        stateFilter.push(ufo);
-                    }
-                });
-            });
-            return stateFilter;
+            return data.filter(ufo => stateValArr.reduce((a,b) => a || b === ufo.state, false));
         }
-
     }
     var stateFilter = stateFilterF(stateValArr)
     console.log(`stateFilter: `);
@@ -154,17 +127,8 @@ submit.on("click", function() {
         if (binValArr.length === 0) {
             return ufos;
         } else {
-            var binFilter = []
-            binValArr.forEach(function(binVal){
-                ufos.forEach(function(ufo){
-                    if (ufo.bin === binVal) {
-                        binFilter.push(ufo);
-                    }
-                });
-            });
-            return binFilter;
+            return data.filter(ufo => binValArr.reduce((a,b) => a || b === ufo.timeBin, false));
         }
-
     }
     var binFilter = binFilterF(binValArr)
     console.log(`binFilter: `);
@@ -178,64 +142,22 @@ submit.on("click", function() {
     var commentFilter = commentFilterF(commentValue);
     console.log(`commentFilter: `);
     console.log(commentFilter);
-    var subFilter = [];
-    dateFilter.forEach(function(dObj){
-        shapeFilter.forEach(function(shObj){
-            if (dObj === shObj) {
-                subFilter.push(dObj);
-            }
-        });
-    });
+    var subFilter = dateFilter.filter(ufo => shapeFilter.reduce((a,b) => a || b === ufo, false));
     console.log(`subFilter: `);
     console.log(subFilter);
-    var subFilter2 = [];
-    subFilter.forEach(function(fObj){
-        stateFilter.forEach(function(stObj){
-            if (fObj === stObj) {
-                subFilter2.push(fObj);
-            }
-        });
-    });
+    var subFilter2 = subFilter.filter(ufo => stateFilter.reduce((a,b) => a || b === ufo, false));
     console.log(`subFilter2: `);
     console.log(subFilter2);
-    var subFilter3 = [];
-    subFilter2.forEach(function(f2Obj){
-        countryFilter.forEach(function(coObj){
-            if (f2Obj === coObj) {
-                subFilter3.push(coObj);
-            }
-        });
-    });
+    var subFilter3 = subFilter2.filter(ufo => countryFilter.reduce((a,b) => a || b === ufo, false));
     console.log(`subFilter3: `);
     console.log(subFilter3);
-    var subFilter4 = [];
-    subFilter3.forEach(function(f3Obj){
-        commentFilter.forEach(function(cmObj){
-            if (f3Obj === cmObj) {
-                subFilter4.push(cmObj);
-            }
-        });
-    });
+    var subFilter4 = subFilter3.filter(ufo => commentFilter.reduce((a,b) => a || b === ufo, false));
     console.log(`subFilter4: `);
     console.log(subFilter4);
-    var subFilter5 = [];
-    subFilter4.forEach(function(f4Obj){
-        cityFilter.forEach(function(ctObj){
-            if (f4Obj === ctObj) {
-                subFilter5.push(ctObj);
-            }
-        });
-    });
+    var subFilter5 = subFilter4.filter(ufo => cityFilter.reduce((a,b) => a || b === ufo, false));
     console.log(`subFilter5: `);
     console.log(subFilter5);
-    var subFilter6 = [];
-    subFilter5.forEach(function(f5Obj){
-        binFilter.forEach(function(bObj){
-            if (f5Obj === bObj) {
-                subFilter6.push(bObj);
-            }
-        });
-    });
+    var subFilter6 = subFilter5.filter(ufo => binFilter.reduce((a,b) => a || b === ufo, false));
     console.log(`subFilter6: `);
     console.log(subFilter6);
     var finalFilter = subFilter6;
