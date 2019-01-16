@@ -1,6 +1,13 @@
 var ufos = data;
 
+data.filter(x => x.durationMinutes.toString().includes('second') || x.durationMinutes.toString().includes('sec')).map(x => x['timeBin'] = "1: Seconds");
+data.filter(x => x.durationMinutes.toString().includes('minute') || x.durationMinutes.toString().includes('min')).map(x => x['timeBin'] = "2: Minutes");
+data.filter(x => x.durationMinutes.toString().includes('hour')).map(x => x['timeBin'] = "3: Hours");
+data.filter(x => !x.durationMinutes.toString().includes('hour') && !x.durationMinutes.toString().includes('minute') && !x.durationMinutes.toString().includes('min') && !x.durationMinutes.toString().includes('second') && !x.durationMinutes.toString().includes('sec')).map(x => x['timeBin'] = "4: Rest");
+
+var tabl = d3.select('table');
 var tbody = d3.select('tbody');
+var thead = d3.select('thead');
 var submit = d3.select('#filter-btn')
 
 var shapes = data.map(x => x.shape);
@@ -24,6 +31,14 @@ var citySorted = cityArr.sort((a,b) => a > b ? 1 : a === b ? 0 : -1);
 //var sorted = cityArr.sort((a,b) => a.localeCompare(b));
 citySorted.forEach(x => {
     d3.select('#citySelect').append('option').text(x);
+})
+
+var bins = data.map(x => x.timeBin);
+var binSet = new Set(bins);
+var binArr = [...binSet]
+var binSorted = binArr.sort((a,b) => a > b ? 1 : a === b ? 0 : -1);
+binSorted.forEach(x => {
+    d3.select('#binSelect').append('option').text(x);
 })
 
 submit.on("click", function() {
@@ -131,11 +146,34 @@ submit.on("click", function() {
     var stateFilter = stateFilterF(stateValArr)
     console.log(`stateFilter: `);
     console.log(stateFilter);
+    var binValue = d3.select('#binSelect').selectAll("option").filter(function(){return this.selected});
+    var binValArr = binValue._groups[0].map(x => x.value)
+    console.log(`binValArr: `);
+    console.log(binValArr);
+    var binFilterF = function(binValArr) {
+        if (binValArr.length === 0) {
+            return ufos;
+        } else {
+            var binFilter = []
+            binValArr.forEach(function(binVal){
+                ufos.forEach(function(ufo){
+                    if (ufo.bin === binVal) {
+                        binFilter.push(ufo);
+                    }
+                });
+            });
+            return binFilter;
+        }
+
+    }
+    var binFilter = binFilterF(binValArr)
+    console.log(`binFilter: `);
+    console.log(binFilter);
     var commentElement = d3.select("#commentSearch");
     var commentValue = commentElement.property("value")
     var commentFilterF = function(commentValue) {
-        commentValue = " " + commentValue;
-        return data.filter(x => x.comments.includes(commentValue))
+        var regex = new RegExp(commentValue, "gi")
+        return data.filter(x => regex.test(x.comments) === true);
     }
     var commentFilter = commentFilterF(commentValue);
     console.log(`commentFilter: `);
@@ -190,7 +228,17 @@ submit.on("click", function() {
     });
     console.log(`subFilter5: `);
     console.log(subFilter5);
-    var finalFilter = subFilter5;
+    var subFilter6 = [];
+    subFilter5.forEach(function(f5Obj){
+        binFilter.forEach(function(bObj){
+            if (f5Obj === bObj) {
+                subFilter6.push(bObj);
+            }
+        });
+    });
+    console.log(`subFilter6: `);
+    console.log(subFilter6);
+    var finalFilter = subFilter6;
     var sortValue = document.querySelector('input[name = "sortSelect"]:checked').labels[0].innerText;
 
     switch (sortValue) {
@@ -209,23 +257,70 @@ submit.on("click", function() {
         case 'Sort by State':
             finalFilter.sort((a,b) => a.state > b.state ? 1 : a.state === b.state ? 0 : -1);
             break;
+        case 'Sort by Duration':
+            finalFilter.sort(function(a, b) {
+                if (parseInt(a.timeBin) > parseInt(b.timeBin)) return 1;
+                if (parseInt(a.timeBin) < parseInt(b.timeBin)) return -1;
+                if (parseInt(a.durationMinutes.toString().replace(/[A-Za-z]+/g, "")) > parseInt(b.durationMinutes.toString().replace(/[A-Za-z]+/g, ""))) return 1;
+                if (parseInt(a.durationMinutes.toString().replace(/[A-Za-z]+/g, "")) < parseInt(b.durationMinutes.toString().replace(/[A-Za-z]+/g, ""))) return -1;
+                return 0;
+            })
+            break;
         case 'Sort by Comment':
             finalFilter.sort((a,b) => a.comments > b.comments ? 1 : a.comments === b.comments ? 0 : -1);
             break;
+        case 'Sort by Duration Group':
+            finalFilter.sort((a,b) => a.timeBin > b.timeBin ? 1 : a.timeBin === b.timeBin ? 0 : -1);
+            break;
+
     }
     console.log(finalFilter);
     
-    tbody.append('tr')
-    tbody.append('td').style('white-space', 'nowrap').text(`Search for: Date: [...${dateValue}], Country:[...${countryValue}], Shape:[...${shapeValArr}], State:[...${stateValArr}], Comment:[...${commentValue}]`);
-    tbody.append('tr')
-    tbody.append('td').text(`        -------- --------`);
-    finalFilter.forEach(x => {
-        var row = tbody.append('tr');
-        Object.entries(x).forEach(([k,v]) => {
-            var cell = tbody.append('td');
-            cell.text(v);
-        })
-    })
-    tbody.append('tr')
-    tbody.append('td').style('white-space', 'nowrap').text(`-------- End Results --------`);
+    var modeValue = document.querySelector('input[name = "modeSelect"]:checked').labels[0].innerText;
+
+    switch (modeValue) {
+        case 'Append Results':
+            tbody.append('tr')
+            tbody.append('td').style('white-space', 'nowrap').text(`${dateValue}`);
+            tbody.append('td').style('white-space', 'nowrap').text(`${cityValArr}`);
+            tbody.append('td').style('white-space', 'nowrap').text(`${stateValArr}`);
+            tbody.append('td').style('white-space', 'nowrap').text(`${countryValue}`);
+            tbody.append('td').style('white-space', 'nowrap').text(`${shapeValArr}`);
+            tbody.append('td').style('white-space', 'nowrap').text(``);
+            tbody.append('td').style('white-space', 'nowrap').text(`${commentValue}`);
+            tbody.append('td').style('white-space', 'nowrap').text(`${binValArr}`);
+            finalFilter.forEach(x => {
+                var row = tbody.append('tr');
+                Object.entries(x).forEach(([k,v]) => {
+                    var cell = tbody.append('td');
+                    cell.text(v);
+                })
+            })
+            tbody.append('tr');
+            tbody.append('td').style('white-space', 'nowrap').text(`-------- End Results --------`);
+            break;
+        case 'Rewrite Results':
+            tbody.selectAll('tr').remove()
+            tbody.selectAll('td').remove()
+
+            tbody.append('tr')
+            tbody.append('td').style('white-space', 'nowrap').text(`${dateValue}`);
+            tbody.append('td').style('white-space', 'nowrap').text(`${cityValArr}`);
+            tbody.append('td').style('white-space', 'nowrap').text(`${stateValArr}`);
+            tbody.append('td').style('white-space', 'nowrap').text(`${countryValue}`);
+            tbody.append('td').style('white-space', 'nowrap').text(`${shapeValArr}`);
+            tbody.append('td').style('white-space', 'nowrap').text(``);
+            tbody.append('td').style('white-space', 'nowrap').text(`${commentValue}`);
+            tbody.append('td').style('white-space', 'nowrap').text(`${binValArr}`);
+            finalFilter.forEach(x => {
+                var row = tbody.append('tr');
+                Object.entries(x).forEach(([k,v]) => {
+                    var cell = tbody.append('td');
+                    cell.text(v);
+                })
+            })
+            tbody.append('tr');
+            tbody.append('td').style('white-space', 'nowrap').text(`-------- End Results --------`);
+            break;
+        }
 })

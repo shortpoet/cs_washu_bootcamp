@@ -48,6 +48,22 @@
                         <label for="dateSort">Sort by Date</label>
                       </li>
                       <br>
+                      <li class="filter list-group-item">
+                        <label for="citySelect">Select City (hold shift to select multiple):</label>
+                        <select multiple class="form-control" id="citySelect" aria-label="Control or Shift to Select multiple cities">
+                        </select>
+                        <input name="sortSelect" type="radio" id="citySort" class="radio-inline" aria-label="Sort by City">
+                        <label for="citySort">Sort by City</label>
+                      </li>
+                      <br>
+                      <li class="filter list-group-item">
+                        <label for="stateSelect">Select State (hold shift to select multiple):</label>
+                        <select multiple class="form-control" id="stateSelect" aria-label="Control or Shift to Select multiple states">
+                        </select>
+                        <input name="sortSelect" type="radio" id="stateSort" class="radio-inline" aria-label="Sort by State">
+                        <label for="stateSort">Sort by State</label>
+                      </li>
+                      <br>
                       <li class="filter list-group-item" id="countrySelect">
                         <label for="country-all">All Countries</label>
                         <input name="countrySelect" class="form-control radio-inline" id="country-all" type="radio" checked="checked" aria-label="Select all countries (default)">
@@ -68,26 +84,24 @@
                       </li>
                       <br>
                       <li class="filter list-group-item">
-                        <label for="citySelect">Select City (hold shift to select multiple):</label>
-                        <select multiple class="form-control" id="citySelect" aria-label="Control or Shift to Select multiple cities">
-                        </select>
-                        <input name="sortSelect" type="radio" id="citySort" class="radio-inline" aria-label="Sort by City">
-                        <label for="citySort">Sort by City</label>
+                        <input name="sortSelect" type="radio" id="durationSort" class="radio-inline" aria-label="Sort by Duration">
+                        <label for="durationSort">Sort by Duration</label>
                       </li>
                       <br>
                       <li class="filter list-group-item">
-                        <label for="stateSelect">Select State (hold shift to select multiple):</label>
-                        <select multiple class="form-control" id="stateSelect" aria-label="Control or Shift to Select multiple states">
-                        </select>
-                        <input name="sortSelect" type="radio" id="stateSort" class="radio-inline" aria-label="Sort by State">
-                        <label for="stateSort">Sort by State</label>
-                      </li>
-                      <li class="filter list-group-item">
-                        <label for="stateSelect">Search Comments</label>
+                        <label for="commentSearch">Search Comments</label>
                         <input class="form-control" id="commentSearch" type="text" placeholder="Search" aria-label="Comment Search">
                         </select>
                         <input name="sortSelect" type="radio" id="commentSort" class="radio-inline" aria-label="Sort by Comment">
                         <label for="commentSort">Sort by Comments</label>
+                      </li>
+                      <br>
+                      <li class="filter list-group-item">
+                        <label for="binSelect">Select Duration Group (hold shift to select multiple):</label>
+                        <select multiple class="form-control" id="binSelect" aria-label="Control or Shift to Select multiple time groups">
+                        </select>
+                        <input name="sortSelect" type="radio" id="binSort" class="radio-inline" aria-label="Sort by Time Group">
+                        <label for="binSort">Sort by Duration Group</label>
                       </li>
                     </ul>
                   </div>
@@ -109,6 +123,7 @@
                   <th class="table-head">Shape</th>
                   <th class="table-head">Duration</th>
                   <th class="table-head">Comments</th>
+                  <th class="table-head">Duration Group</th>
                 </tr>
               </thead>
               <tbody></tbody>
@@ -123,7 +138,7 @@
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
   <script src="static/js/data.js"></script>
-  <script src="static/js/app2.js"></script>
+  <script src="static/js/app.js"></script>
   <!-- ¿ Why are the scripts at the end ?-->
 </body>
 
