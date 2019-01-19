@@ -42,6 +42,20 @@ binSorted.forEach(x => {
     d3.select('#binSelect').append('option').text(x);
 })
 
+function stringToDate(_date,_format,_delimiter)
+{
+            var formatLowerCase=_format.toLowerCase();
+            var formatItems=formatLowerCase.split(_delimiter);
+            var dateItems=_date.split(_delimiter);
+            var monthIndex=formatItems.indexOf("mm");
+            var dayIndex=formatItems.indexOf("dd");
+            var yearIndex=formatItems.indexOf("yyyy");
+            var month=parseInt(dateItems[monthIndex]);
+            month-=1;
+            var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
+            return formatedDate
+}
+
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
@@ -271,7 +285,8 @@ submit.on("click", function() {
 
     switch (sortValue) {
         case 'Sort by Date':
-            finalFilter.sort((a,b) => a.datetime > b.datetime ? 1 : a.datetime === b.datetime ? 0 : -1);
+            finalFilter.map(x => stringToDate(x.datetime, "dd/MM/yyyy", "/"))
+            finalFilter.sort((a,b) => b.datetime - a.datetime ? -1 : b.datetime === a.datetime ? 0 : 1);
             break;
         case 'Sort by Country':
             finalFilter.sort((a,b) => a.country > b.country ? 1 : a.country === b.country ? 0 : -1);
@@ -294,7 +309,7 @@ submit.on("click", function() {
                 return 0;
             })
             break;
-        case 'Sort by Comment':
+        case 'Sort by Comments':
             finalFilter.sort((a,b) => a.comments > b.comments ? 1 : a.comments === b.comments ? 0 : -1);
             break;
         case 'Sort by Duration Group':
