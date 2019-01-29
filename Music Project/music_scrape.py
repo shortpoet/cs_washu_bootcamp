@@ -117,6 +117,7 @@ test_url_df = pd.read_csv("test_playlist_urls.csv")
 test_url_list = test_url_df['0'].tolist()
 
 all_url_df = pd.read_csv("all_playlist_urls.csv")
+all_url_list = all_url_df['0'].tolist()
 '''
 all_url_list = all_url_df[0].tolist()
 
