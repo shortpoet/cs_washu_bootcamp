@@ -169,9 +169,31 @@ d3.csv('/assets/data/data.csv').then(function(healthData) {
     var headrow = thead.append('tr')
     var averageRow = thead.append('tr').attr('class', 'avgerageRow').html(`<td><strong>Average</strong></td><td></td><td>${average(healthData, 'poverty')}</td><td>${average(healthData, 'age')}</td><td>${average(healthData, 'income')}</td><td>${average(healthData, 'healthcare')}</td><td>${average(healthData, 'obesity')}</td><td>${average(healthData, 'smokes')}</td>`)
     var tbody = d3.select('table').append('tbody')
-    var content = tbody.selectAll('tr').data(healthData).enter().append('tr').html(data => `<td>${data.state}</td><td>${data.abbr}</td><td>${data.poverty}</td><td>${data.age}</td><td>${data.income}</td><td>${data.healthcare}</td><td>${data.obesity}</td><td>${data.smokes}</td>`)
+    var content = tbody.selectAll('tr').data(healthData).enter().append('tr').html((data, i) => `<td class="col_0 row_${i}">${data.state}</td><td class="col_1 row_${i}">${data.abbr}</td><td class="col_2 row_${i}">${data.poverty}</td><td class="col_3 row_${i}">${data.age}</td><td class="col_4 row_${i}">${data.income}</td><td class="col_5 row_${i}">${data.healthcare}</td><td class="col_6 row_${i}">${data.obesity}</td><td class="col_7 row_${i}">${data.smokes}</td>`).on('mouseover', function(d, i) {
+                         d3.select(this).style('background-color', 'purple')
+                         d3.selectAll('td.col_' + i).style('background-color', 'purple')
+                         console.log(this)
+                       })
+                       .on('mouseout', function(d, i) {
+                         d3.select(this).style('background-color', null)
+                         d3.selectAll('td.col_' + i).style('background-color', null)
+                         d3.select('.data').append('table').classed('table table-striped table-sortable', true)
+                      })
+  d3.selectAll('td.col_2').style("background-color", function(d, i){
+    return colorScale(i);
+  });
+
+  function colorScale(i){
+    var color = d3.scaleLinear()
+      .domain([0, content.selectAll("tr").length-1])
+      .interpolate(d3.interpolateRgb)
+      .range(["orange", "silver"]);
+
+    return color(i);
+  }
+              
     var sortAscending = true
-    headrow.selectAll('th').data(headers).enter().append('th').attr('class', 'sortable').attr('value', d => d).text(d => d).on('click',function(d, i) {
+    headrow.selectAll('th').data(headers).enter().append('th').attr('class', (d, i) => `sortable col_${i}`).attr('value', d => d).text(d => d).on('click',function(d, i) {
       headrow.selectAll('th').attr('class', 'sortable')
       var sort_value = d3.select(this).attr('value')
       if (sortAscending === true) {

@@ -114,6 +114,14 @@ d3.csv('/assets/data/data.csv').then(function(healthData) {
     .attr("opacity", ".8")
     .style('fill', d => (d[chosenSelect] < +average(healthData, chosenSelect)) ? colors(d[chosenSelect]) :  colors2(d[chosenSelect]))
     .classed('bar', true)
+    .on("mouseover", function() {
+      d3.select(this)
+      .attr('fill', "purple")
+      console.log(this)
+    })
+    .on("mouseout", function() {
+      d3.select(this)
+    });
   var rectLabelsGroup = rectChartGroup.append('g')
     .classed('rectLabel', true)
 
@@ -140,10 +148,13 @@ d3.csv('/assets/data/data.csv').then(function(healthData) {
   rectGroups.call(rectToolTip);
 
   rectGroups.on("mouseover", function(data) {
+    d3.select(this).style('fill', "purple")
     rectToolTip.show(data, this);
   })
     // onmouseout event
     .on("mouseout", function(data, index) {
+      d3.select(this).style('fill', d => (d[chosenSelect] < +average(healthData, chosenSelect)) ? colors(d[chosenSelect]) :  colors2(d[chosenSelect]))
+
       rectToolTip.hide(data);
   });
   var sortOrder = false;

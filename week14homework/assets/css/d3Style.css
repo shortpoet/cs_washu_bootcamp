@@ -82,6 +82,14 @@ th {
   cursor: pointer;
 }
 
+rect.bar.highlight text {
+  opacity: 1;
+}
+
+rect.bar.highlight rect {
+  fill: Maroon;
+}
+
 /* th { 
 	padding: 4px; 
 	border: 1px solid #CCC;
