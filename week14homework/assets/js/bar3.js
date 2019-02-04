@@ -204,7 +204,13 @@ d3.csv('/assets/data/data.csv').then(function(healthData) {
   d3.select('#alphabetize').on('click', function(d) {
     alphaSortOrder = !alphaSortOrder
     healthData = healthData.sort((a,b) => (alphaSortOrder) ? d3.descending(a['state'], b['state']) : d3.ascending(a['state'], b['state']))
-
+    var button = d3.select(this).select('i')
+    if (alphaSortOrder) {
+      button.attr('class', 'fas fa-sort-alpha-down')
+    } else {
+      button.attr('class', 'fas fa-sort-alpha-up')
+    }
+    // (button.attr('class', 'fas fa-sort-alpha-up')) ? button.attr('class', 'fas fa-sort-alpha-down') : button.attr('class', 'fas fa-sort-alpha-up');
     // yBandScaleRect.select('.domain').remove()
     yBandScaleRect.domain(healthData.map(d => d.state))
     xLinearScaleRect.domain([0, d3.max(healthData, d => +d[chosenSelect])])

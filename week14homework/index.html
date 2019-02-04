@@ -12,6 +12,7 @@
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
     crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/d3Style.css">
 
@@ -35,27 +36,23 @@
       <div class="col-xs-12  col-md-9">
         <div class="article">
           <h2>Correlations Discovered Between Health Risks and Age, Income</h2>
-          <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-            quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-            ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+          <p>The strongest correlations whose visualization is aided by the scatter plot are obesity and smoking as correlated 
+             with poverty and household income.  Switching between poverty and income shows the same cluster of states switching
+             from one end of the chart to the other.</p>
 
-          <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-            quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-            ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+          <p>States with a lack of healthcare also seem to correlate strongly with income and poverty levels.</p>
 
-          <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-            quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-            ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+          <p>Age has a slight correlation with smoking.</p>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12  col-md-9">
         <div class="barSelect">
-          <button id="alphabetize">Alphabetize</button>
+          <button type="button" class="btn btn-lg" id="alphabetize"><i class="fas fa-sort-alpha-up"></i>&nbsp</button>            
           <br>
           <br>
-          <p>Click the button or anywhere in chart to sort by state or X axis.  Click again to resort in reverse order.</p>
+          <p>Click the button to alphabetize or anywhere in chart to sort by X axis.  Click again to resort in reverse order.</p>
           <p>Chart color split at average</p>
         </div>
       </div>
@@ -68,6 +65,7 @@
     </div>
     <div class="row">
       <div class="col-xs-12  col-md-9">
+        <div><p>Click on header row to sort. Click again to resort in reverse order.</p></div>
         <div class="data">
         </div>
       </div>

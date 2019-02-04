@@ -78,7 +78,7 @@ th.asc:after {
   content: "\21E7";
 }
 
-th {
+th, .barChart {
   cursor: pointer;
 }
 
