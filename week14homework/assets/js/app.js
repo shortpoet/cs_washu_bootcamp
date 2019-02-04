@@ -14,14 +14,14 @@ var height = svgHeight - margin.top - margin.bottom;
 
 // Create an SVG wrapper, append an SVG group that will hold our chart,
 // and shift the latter by left and top margins.
-var svg = d3
+var scatterSvg = d3
   .select("#scatter")
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
 
 // Append an SVG group
-var chartGroup = svg.append("g")
+var chartGroup = scatterSvg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Initial Params
@@ -137,7 +137,10 @@ function yScale(healthData, chosenYAxis) {
   
     return circlesGroup;
   }
-
+function average(dataset, column) {
+  dataset = dataset.map(d => d[column])
+  return (dataset.reduce((a,b) => a + b))/dataset.length
+}
 
 d3.csv('/assets/data/data.csv').then(function(healthData) {
     healthData.forEach(data => {
@@ -158,11 +161,13 @@ d3.csv('/assets/data/data.csv').then(function(healthData) {
         data.state = data.state
         data.abbr = data.abbr
     })
+    console.log(healthData)
     var headers = d3.keys(healthData[0])
     headers = headers.slice(1,4).concat(headers.slice(5,6)).concat(headers.slice(7,8)).concat(headers.slice(9,10)).concat(headers.slice(12,13)).concat(headers.slice(15,16))
     var table = d3.select('.data').append('table').classed('table table-striped table-sortable', true)
     var thead = table.append('thead')
     var headrow = thead.append('tr')
+    var averageRow = thead.append('tr').attr('class', 'avgerageRow').html(`<td><strong>Average</strong></td><td></td><td>${average(healthData, 'poverty')}</td><td>${average(healthData, 'age')}</td><td>${average(healthData, 'income')}</td><td>${average(healthData, 'healthcare')}</td><td>${average(healthData, 'obesity')}</td><td>${average(healthData, 'smokes')}</td>`)
     var tbody = d3.select('table').append('tbody')
     var content = tbody.selectAll('tr').data(healthData).enter().append('tr').html(data => `<td>${data.state}</td><td>${data.abbr}</td><td>${data.poverty}</td><td>${data.age}</td><td>${data.income}</td><td>${data.healthcare}</td><td>${data.obesity}</td><td>${data.smokes}</td>`)
     var sortAscending = true
@@ -179,7 +184,7 @@ d3.csv('/assets/data/data.csv').then(function(healthData) {
         content.sort((a,b) => d3.descending(a[sort_value], b[sort_value]))
         sortAscending = true
         d3.select(this).attr('class', 'desc')
-        d3.select(this).html(`<th>${d3(select(this).text())}</th><span class="glyphicon glyphicon-triangle-bottom"></span>`)
+        // d3.select(this).html(`<th>${d3(select(this).text())}</th><span class="glyphicon glyphicon-triangle-bottom"></span>`)
         // d3.select(this).classed('asc', true).classed('desc', false)
       }
     })
