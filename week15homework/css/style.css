@@ -1,0 +1,58 @@
+/* remove default margin and padding from body */
+body {
+  padding: 0;
+  margin: 0;
+}
+
+/* set map, body, and html to 100% of the screen size */
+#map,
+body,
+html {
+  height: 100%;
+}
+
+/* #input {
+  z-index: 1;
+}
+
+#map {
+  height: 100%;
+} */
+
+table {
+  empty-cells: show;
+  text-align: center
+}
+
+th, td {
+  width: 110px
+}
+
+th.color-col, td.color-col {
+  width: 55px;
+  padding: 1px
+}
+
+th.col-col, td.col-col {
+  border: 1px white solid
+}
+/* .form {
+  background-color: blanchedalmond
+} */
+
+/* #map {
+  height: 340px;
+}
+.leaflet-bar a {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  /* border-bottom-color: rgb(204, 204, 204); */
+  color: #444;
+  display: block;
+  height: 26px;
+  width: 26px;
+  line-height: 1.45 !important;
+  text-align: center;
+  text-decoration: none;
+  font: bold 18px'Lucida Console', Monaco, monospace;
+} */
