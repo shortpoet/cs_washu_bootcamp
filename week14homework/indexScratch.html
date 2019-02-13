@@ -32,7 +32,7 @@
             <div class="panel panel-default">
               <div class="panel-heading">Filter Search</div>
               <div class="panel-body">
-                <form>
+                <form autocomplete="off">
                   <div class="form-group">
                     <ul class="list-group" id="filters">
                       <li class="filter list-group-item">
@@ -49,9 +49,6 @@
                       </li>
                       <br>
                       <li class="filter list-group-item">
-                        <label for="citySelect">Select City (hold shift to select multiple):</label>
-                        <select multiple class="form-control" id="citySelect" aria-label="Control or Shift to Select multiple cities">
-                        </select>
                         <label for="citySearch">Enter a City</label>
                         <input class="form-control" id="citySearch" type="text" placeholder="Search for City" aria-label="Search for City">
                         <input name="sortSelect" type="radio" id="citySort" class="radio-inline" aria-label="Sort by City">
@@ -142,7 +139,7 @@
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
   <script src="static/js/data.js"></script>
-  <script src="static/js/app.js"></script>
+  <script src="static/js/appScratch.js"></script>
   <!-- ¿ Why are the scripts at the end ?-->
 </body>
 
