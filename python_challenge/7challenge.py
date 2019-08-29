@@ -1,9 +1,11 @@
 from PIL import Image
 import PIL, re
 
-sol = PIL.Image.open('/Users/soria/Downloads/oxygen.png').tobytes()[108188:110620:28]
+sol = PIL.Image.open('/home/shortpoet/Downloads/oxygen.png').tobytes()[108188:110620:28]
 
 print(sol)
+
+print(*map(chr, [105, 110, 116, 101, 103, 114, 105, 116, 121]), sep = "")
 
 #img = Image.open('/Users/soria/Downloads/oxygen.png')
 #width = img.width

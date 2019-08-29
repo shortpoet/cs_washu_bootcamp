@@ -1,7 +1,7 @@
 import os
 import re, zipfile
 
-filename = zipfile.ZipFile('/Users/soria/Downloads/channel.zip')
+filename = zipfile.ZipFile('/home/shortpoet/Downloads/channel.zip')
 num = '90052'
 comments = []
 
